@@ -8,6 +8,8 @@ import usersRoute from "./routes/users";
 import roomsRoute from "./routes/rooms";
 import bookingsRoute from "./routes/bookings";
 import reviewsRoute from "./routes/reviews";
+import { createRouteHandler } from "uploadthing/express";
+import { uploadRouter } from "./utils/uploadthing";
 
 const app = express();
 
@@ -35,6 +37,17 @@ app.use("/api/users", usersRoute);
 app.use("/api/rooms", roomsRoute);
 app.use("/api/bookings", bookingsRoute);
 app.use("/api/reviews", reviewsRoute);
+
+app.use(
+  "/api/uploadthing",
+  createRouteHandler({
+    router: uploadRouter,
+    config: {
+      uploadthingId: process.env.UPLOADTHING_ID as string,
+      uploadthingSecret: process.env.UPLOADTHING_SECRET as string,
+    },
+  })
+);
 
 app.listen(portNo, async () => {
   await connect();
