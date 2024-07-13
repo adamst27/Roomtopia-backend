@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
+import dotenv from "dotenv";
 import { connect } from "./utils/database";
 import cookieParser from "cookie-parser";
 import authRoute from "./routes/auth";
@@ -23,6 +24,8 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
+dotenv.config();
+
 app.get("/", (req: Request, res: Response) => {
   res.send("Server is working correctly");
 });
@@ -33,7 +36,7 @@ app.use("/api/rooms", roomsRoute);
 app.use("/api/bookings", bookingsRoute);
 app.use("/api/reviews", reviewsRoute);
 
-app.listen(portNo, () => {
-  connect();
+app.listen(portNo, async () => {
+  await connect();
   console.log("Server listening on port " + portNo);
 });

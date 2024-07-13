@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User from "../models/User";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -60,7 +60,7 @@ export const login = async (req: any, res: any) => {
       });
     }
 
-    const { password, role, ...rest } = user._doc as any;
+    const { password, role, ...rest } = (user as any)._doc;
 
     //creating jwt token
     const token = jwt.sign(
@@ -73,7 +73,7 @@ export const login = async (req: any, res: any) => {
     res
       .cookie("accessToken", token, {
         httpOnly: true,
-        expiresIn: token.expiresIn,
+        expiresIn: (token as any).expiresIn,
       })
       .status(200)
       .json({
