@@ -9,6 +9,11 @@ const roomSchema = new Schema({
     type: String,
     required: [true, "Room must have a description"],
   },
+  roomImage: {
+    type: String,
+    default: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+    required: [true, "Room must have an image"],
+  },
 
   ownerId: {
     type: Schema.Types.ObjectId,
