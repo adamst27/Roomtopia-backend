@@ -14,7 +14,6 @@ const roomSchema = new Schema({
     default: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
     required: [true, "Room must have an image"],
   },
-
   ownerId: {
     type: Schema.Types.ObjectId,
     ref: "User",
@@ -23,6 +22,14 @@ const roomSchema = new Schema({
   price: {
     type: Number,
     required: [true, "Room must have a price"],
+  },
+  location: {
+    type: String,
+    required: [true, "Room must have a location"],
+  },
+  roomCategory: {
+    type: String,
+    required: [true, "Room must have a roomType"],
   },
   maxPeople: {
     type: Number,
